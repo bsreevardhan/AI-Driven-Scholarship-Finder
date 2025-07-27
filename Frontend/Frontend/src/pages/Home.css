@@ -1,0 +1,73 @@
+.home-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 40px;
+  padding-top: 140px; /* pushes content below the fixed navbar */
+  background-color: #101010;
+  color: #ecf0f1;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+.text-section {
+  width: 48%;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.text-section h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.text-section h2 {
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+
+.text-section ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.text-section li {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+.text-section p{
+  font-size: 17px;
+}
+
+.image-section {
+  width: 52%;
+  position: relative;
+}
+
+.main-image {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.chatbot-icon {
+  position: absolute; /* Absolute positioning for bottom-right corner */
+  bottom: 10px; /* Adjust the distance from the bottom */
+  right: 10px; /* Align it to the right corner */
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.chatbox {
+  position: absolute;
+  bottom: 70px;
+  right: 10px;
+  width: 250px;
+  background-color: #fff;
+  color: #333;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  z-index: 10;
+}

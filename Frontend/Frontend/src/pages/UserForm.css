@@ -1,0 +1,124 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow-x: hidden;
+  background-color: #000; /* Ensure entire page is black */
+  color: white;
+}
+
+/* Full background container */
+.form-background {
+  background-color: #000; /* Ensure solid black background */
+  width: 100%;
+  min-height: 100vh; /* Allow it to grow beyond viewport height */
+  display: flex;
+  justify-content: center;
+  padding: 80px 20px 40px; /* Top and bottom padding for spacing */
+  box-sizing: border-box;
+}
+
+/* Overlay (optional, kept transparent) */
+.form-overlay {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Form box styling */
+.form-box {
+  background-color: #000;
+  padding: 40px 30px 60px; /* Extra bottom padding to show button */
+  border-radius: 10px;
+  width: 100%;
+  max-width: 700px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+}
+
+/* Form header */
+.form-box h2 {
+  margin-bottom: 40px;
+  font-size: 28px;
+  color: #ff66cc;
+  margin-top: 0;
+  text-align: center;
+}
+
+/* Labels */
+.form-box label {
+  display: block;
+  margin-bottom: 6px;
+  margin-top: 16px;
+  font-weight: bold;
+  color: #ecf0f1;
+  text-align: left;
+}
+
+/* Inputs and selects */
+.form-box input,
+.form-box select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: none;
+  border-bottom: 2px solid #bb86fc;
+  background: transparent;
+  color: white;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.form-box input::placeholder,
+.form-box select::placeholder {
+  color: #ccc;
+}
+
+/* Select box styling */
+.form-box select {
+  background-color: #000;
+  color: white;
+}
+
+.form-box select option {
+  background-color: #000;
+  color: white;
+}
+
+/* Submit button */
+.form-box button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(to right, #8e2de2, #ff6ec4);
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  margin-top: 10px;
+}
+
+.form-box button:hover {
+  opacity: 0.9;
+}
+
+/* Text below form */
+.form-box p {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.form-box a {
+  color: #bb86fc;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.form-box a:hover {
+  text-decoration: underline;
+}

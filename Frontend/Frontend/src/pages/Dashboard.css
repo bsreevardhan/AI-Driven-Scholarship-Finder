@@ -1,0 +1,60 @@
+.dashboard {
+  padding: 80px 20px 20px;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.dashboard h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color:#623d8f ;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.scholarship-item {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  margin: 20px auto;
+  padding: 20px;
+  text-align: left;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 750px;
+}
+
+.scholarship-item p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.label {
+  color: #000;
+  font-weight: 600;
+}
+
+.detail {
+  color: #623d8f;
+  font-weight: 500;
+  margin-left: 5px;
+}
+
+.scholarship-item a {
+  color: #623d8f;
+  text-decoration: none;
+}
+
+.scholarship-item a:hover {
+  text-decoration: underline;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  margin-top: 50px;
+}

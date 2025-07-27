@@ -1,0 +1,170 @@
+.about-us-container {
+    display: flex;
+    justify-content: space-between;
+    background-image: url('../assets/Image6.avif'); /* Path to your background image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 50px 20px;
+    min-height: calc(100vh - 120px);
+    color: #ecf0f1;
+    box-sizing: border-box;
+    margin-top: 100px;
+    position: relative;
+    padding-bottom: 100px;
+  }
+  
+  /* Optional dark overlay for better text contrast */
+  .about-us-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(6, 4, 7, 0.85); /* Slightly transparent overlay */
+    z-index: 0;
+  }
+  
+  .about-us-content,
+  .about-us-image {
+    position: relative;
+    z-index: 1; /* Place content above overlay */
+  }
+  
+  .about-us-content {
+    flex: 3;
+    padding-right: 20px;
+  }
+  
+  .about-us-image {
+    flex: 1;
+    padding-left: 20px;
+  }
+  
+  .about-us-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  
+  h1 {
+    font-size: 36px;
+    color: #fff;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  h2 {
+    font-size: 28px;
+    color: #fff;
+    margin-bottom: 15px;
+    margin-top: 20px;
+  }
+  
+  section {
+    margin-bottom: 30px;
+  }
+  
+  section p {
+    font-size: 16px;
+    color: #fff;
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  ul li {
+    font-size: 16px;
+    margin-bottom: 10px;
+    padding-left: 20px;
+    position: relative;
+  }
+  
+  ul li::before {
+    content: "•";
+    color: #ecf0f1;
+    position: absolute;
+    left: 0;
+    font-size: 20px;
+  }
+  
+  strong {
+    color: #ecf0f1;
+  }
+  
+  /* Contact Info */
+  .contact-us p {
+    font-size: 16px;
+    color: #fff;
+  }
+  
+  .contact-us .social-media p {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #fff;
+  }
+  
+  .contact-us .social-media a {
+    text-decoration: none;
+    color: #ecf0f1;
+    font-weight: bold;
+  }
+  
+  .contact-us .social-media a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Mobile Responsiveness */
+  @media (max-width: 768px) {
+    .about-us-container {
+      flex-direction: column;
+      padding: 30px 10px;
+      min-height: auto;
+      margin-top: 70px;
+    }
+  
+    .about-us-content {
+      flex: 1;
+      margin-bottom: 30px;
+    }
+  
+    .about-us-image {
+      flex: 1;
+      margin-bottom: 30px;
+    }
+  
+    h1 {
+      font-size: 28px;
+    }
+  
+    h2 {
+      font-size: 24px;
+    }
+  
+    section p,
+    .contact-us p {
+      font-size: 14px;
+    }
+  
+    .contact-us .social-media a {
+      font-size: 14px;
+    }
+  }
+  /* Your existing styles remain unchanged above this line */
+
+.chatbot-icon {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    z-index: 1000;
+  }
+  
+  

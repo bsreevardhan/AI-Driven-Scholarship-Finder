@@ -1,0 +1,101 @@
+/* Chatbot.css */
+.chatbot-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  cursor: pointer;
+  z-index: 1000; /* Ensures the icon is always on top */
+}
+
+.chatbot-window {
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
+  width: 300px;
+  height: 400px;
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-header {
+  background-color: #ff66cc; /* Chatbot header color */
+  color: #fff;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px 10px 0 0;
+}
+
+.chat-header h3 {
+  margin: 0;
+}
+
+.close-btn {
+  background: none;
+  color: #fff;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.chat-body {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 10px;
+  background-color: #f7f7f7;
+  color: black; /* Black font inside chatbot */
+}
+
+.message {
+  margin-bottom: 10px;
+  padding: 8px;
+  border-radius: 5px;
+  background-color: #dce8f9; /* Same background for both user and bot */
+  color: black; /* Black font inside chatbot */
+}
+
+.message.user {
+  text-align: right;
+  background-color: #dce8f9; /* Same color for user messages */
+}
+
+.message.bot {
+  background-color: #dce8f9; /* Same color for bot messages */
+}
+
+.chat-input {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+  border-radius: 0 0 10px 10px;
+}
+
+.chat-input input {
+  width: 80%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.chat-input button {
+  width: 15%;
+  background: linear-gradient(to right, #8e2de2, #ff6ec4); /* Linear gradient for send button */
+  color: #fff;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.chat-input button:hover {
+  background: linear-gradient(to right, #ff6ec4, #8e2de2); /* Reverse gradient on hover */
+}
