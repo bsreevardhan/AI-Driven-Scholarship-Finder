@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartScholar AI</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 900px;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #4A90E2;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        form {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .form-group {
+            width: 48%;
+            margin-bottom: 10px;
+        }
+
+        label {
+            font-weight: bold;
+            font-size: 14px;
+            color: #555;
+            display: block;
+            text-align: left;
+            margin-bottom: 4px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4A90E2;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        #scholarship-results {
+            display: none;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #4A90E2;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SmartScholar AI</h1>
+        <div class="form-container">
+            <form id="scholarship-form">
+                <div class="form-group">
+                    <label for="name">Your Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" name="age" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="gender">Gender:</label>
+                    <select id="gender" name="gender">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="income">Annual Income:</label>
+                    <input type="number" id="income" name="income" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="qualification">Qualification:</label>
+                    <select id="qualification" name="qualification" required>
+                        <option value="HSC">High School</option>
+                        <option value="Graduation">Undergraduate</option>
+                        <option value="Post-Graduation">Postgraduate</option>
+                        <option value="Doctorate">Doctorate</option>
+                        <option value="Diploma">Diploma</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="state">State:</label>
+                    <select id="state" name="state" required>
+                        <option value="Kerala">Kerala</option>
+                        <option value="Tamil Nadu">Tamil Nadu</option>
+                        <option value="Karnataka">Karnataka</option>
+                        <option value="Maharashtra">Maharashtra</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Rajasthan">Rajasthan</option>
+                        <option value="Gujarat">Gujarat</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Category:</label>
+                    <select id="category" name="category">
+                        <option value="General">General</option>
+                        <option value="SC">SC</option>
+                        <option value="ST">ST</option>
+                        <option value="OBC">OBC</option>
+                        <option value="SEBC">SEBC</option>
+                        <option value="Minority">Minority</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="percentage">Percentage or Grade:</label>
+                    <input type="number" step="0.1" id="percentage" name="percentage" required>
+                </div>
+
+                <button type="submit">Check Eligibility</button>
+            </form>
+        </div>
+
+        <div id="scholarship-results">
+            <h2>Top 3 Eligible Scholarships</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Scholarship Name</th>
+                        <th>Amount</th>
+                        <th>Deadline</th>
+                    </tr>
+                </thead>
+                <tbody id="scholarship-list">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('scholarship-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            
+            // Prepare JSON Data
+            let formData = {
+                name: document.getElementById('name').value,
+                age: document.getElementById('age').value,
+                gender: document.getElementById('gender').value,
+                income: document.getElementById('income').value,
+                qualification: document.getElementById('qualification').value,
+                state: document.getElementById('state').value,
+                category: document.getElementById('category').value,
+                percentage: document.getElementById('percentage').value
+            };
+
+            // Make API Request
+            let response = await fetch('https://1c19-34-106-118-204.ngrok-free.app/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+
+            let scholarships = await response.json();
+            let list = document.getElementById('scholarship-list');
+
+            list.innerHTML = scholarships.map(s => 
+                `<tr>
+                    <td>${s.Name}</td>
+                    <td>${s['Award Amount']}</td>
+                    <td>${s['Application Deadline']}</td>
+                </tr>`
+            ).join('');
+
+            document.getElementById('scholarship-results').style.display = 'block';
+        });
+    </script>
+</body>
+</html>

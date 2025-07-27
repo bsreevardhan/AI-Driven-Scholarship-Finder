@@ -1,0 +1,282 @@
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Select from 'react-select';
+import './UserForm.css';
+
+const stateOptions = [
+  { value: 'Andhra Pradesh', label: 'Andhra Pradesh' },
+  { value: 'Arunachal Pradesh', label: 'Arunachal Pradesh' },
+  { value: 'Assam', label: 'Assam' },
+  { value: 'Bihar', label: 'Bihar' },
+  { value: 'Chhattisgarh', label: 'Chhattisgarh' },
+  { value: 'Goa', label: 'Goa' },
+  { value: 'Gujarat', label: 'Gujarat' },
+  { value: 'Haryana', label: 'Haryana' },
+  { value: 'Himachal Pradesh', label: 'Himachal Pradesh' },
+  { value: 'Jharkhand', label: 'Jharkhand' },
+  { value: 'Karnataka', label: 'Karnataka' },
+  { value: 'Kerala', label: 'Kerala' },
+  { value: 'Madhya Pradesh', label: 'Madhya Pradesh' },
+  { value: 'Maharashtra', label: 'Maharashtra' },
+  { value: 'Manipur', label: 'Manipur' },
+  { value: 'Meghalaya', label: 'Meghalaya' },
+  { value: 'Mizoram', label: 'Mizoram' },
+  { value: 'Nagaland', label: 'Nagaland' },
+  { value: 'Odisha', label: 'Odisha' },
+  { value: 'Punjab', label: 'Punjab' },
+  { value: 'Rajasthan', label: 'Rajasthan' },
+  { value: 'Sikkim', label: 'Sikkim' },
+  { value: 'Tamil Nadu', label: 'Tamil Nadu' },
+  { value: 'Telangana', label: 'Telangana' },
+  { value: 'Tripura', label: 'Tripura' },
+  { value: 'Uttar Pradesh', label: 'Uttar Pradesh' },
+  { value: 'Uttarakhand', label: 'Uttarakhand' },
+  { value: 'West Bengal', label: 'West Bengal' },
+  { value: 'Other', label: 'Other' },
+];
+
+const customStyles = {
+  control: (provided) => ({
+    ...provided,
+    backgroundColor: 'transparent',
+    borderColor: '#bb86fc',
+    color: '#fff',
+    fontSize: '16px',
+  }),
+  singleValue: (provided) => ({
+    ...provided,
+    color: '#fff',
+  }),
+  menu: (provided) => ({
+    ...provided,
+    backgroundColor: '#000',
+  }),
+  option: (provided, state) => ({
+    ...provided,
+    backgroundColor: state.isFocused ? '#8e2de2' : '#000',
+    color: '#fff',
+    cursor: 'pointer',
+  }),
+  placeholder: (provided) => ({
+    ...provided,
+    color: '#ccc',
+  }),
+  input: (provided) => ({
+    ...provided,
+    color: '#fff',
+  }),
+};
+
+const UserForm = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    Name: '',
+    age: '',
+    gender: '',
+    income: '',
+    qualification: '',
+    state: '',
+    fieldOfStudy: '',
+    cgpa: '',
+    tenth: '',
+    twelfth: '',
+    category: '',
+    religion: '',
+    criteria: [],
+    scholarshipType: '',
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleStateChange = (selectedOption) => {
+    setFormData({ ...formData, state: selectedOption ? selectedOption.value : '' });
+  };
+
+  const handleReligionChange = (e) => {
+    const updatedReligion = e.target.value;
+    const minorityReligions = ['Muslim', 'Christian', 'Sikh', 'Buddhist', 'Jain', 'Parsi'];
+
+    setFormData((prevData) => {
+      const isMinority = minorityReligions.includes(updatedReligion);
+      const updatedCriteria = isMinority
+        ? prevData.criteria.includes('Minority Community')
+          ? prevData.criteria
+          : [...prevData.criteria, 'Minority Community']
+        : prevData.criteria.filter((item) => item !== 'Minority Community');
+
+      return {
+        ...prevData,
+        religion: updatedReligion,
+        criteria: updatedCriteria,
+      };
+    });
+  };
+
+  const handleSpecialCriteriaChange = (e) => {
+    const { value, checked } = e.target;
+    const newCriteria = checked
+      ? [...formData.criteria, value]
+      : formData.criteria.filter((item) => item !== value);
+    setFormData({ ...formData, criteria: newCriteria });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('http://localhost:5000/submit-form', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (result.status === 'success') {
+        alert('Form submitted successfully!');
+        navigate('/dashboard');
+      } else {
+        alert('Error: ' + result.message);
+      }
+    } catch (error) {
+      console.error('Submission error:', error);
+      alert('An error occurred while submitting the form.');
+    }
+  };
+
+  return (
+    <div className="form-background">
+      <div className="form-overlay">
+        <div className="form-box">
+          <h2>Check Your Scholarship Eligibility</h2>
+          <form onSubmit={handleSubmit}>
+            <label>Name:</label>
+            <input type="text" name="Name" value={formData.Name} onChange={handleChange} required />
+
+            <label>Age:</label>
+            <input type="number" name="age" value={formData.age} onChange={handleChange} min="10" max="30" required />
+
+            <label>Gender:</label>
+            <select name="gender" value={formData.gender} onChange={handleChange} required>
+              <option value="">Select</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+
+            <label>Annual Income:</label>
+            <input type="number" name="income" value={formData.income} onChange={handleChange} min="0" max="1000000" required />
+
+
+            <label>State:</label>
+            <Select
+              options={stateOptions}
+              onChange={handleStateChange}
+              value={stateOptions.find((option) => option.value === formData.state)}
+              placeholder="Enter your state"
+              isSearchable
+              styles={customStyles}
+            />
+
+<label>Current Education Level:</label>
+<select
+  name="current education level"
+  value={formData["current education level"]}
+  onChange={handleChange}
+  required
+>
+  <option value="">Select</option>
+  <option>High School</option>
+  <option>UG</option>
+  <option>PG</option>
+  <option>Doctorate</option>
+  <option>Diploma</option>
+  <option>Associate Degree</option>
+</select>
+
+<label>Current Programming:</label>
+<input
+  type="text"
+  name="current programming"
+  value={formData["current programming"]}
+  onChange={handleChange}
+  required
+/>
+
+<label>Current Year of Study:</label>
+<input
+  type="text"
+  name="Current Year of Study"
+  value={formData["Current Year of Study"]}
+  onChange={handleChange}
+  required
+/>
+
+<label>CGPA:</label>
+            <input type="number" name="cgpa" value={formData.cgpa} step="0.01" onChange={handleChange} />
+
+            <label>10th Percentage:</label>
+            <input type="number" name="tenth" value={formData.tenth} step="0.01" onChange={handleChange} required />
+
+            <label>12th Percentage:</label>
+            <input type="number" name="twelfth" value={formData.twelfth} step="0.01" onChange={handleChange} required />
+
+            <label>Category:</label>
+            <select name="category" value={formData.category} onChange={handleChange} required>
+              <option value="">Select</option>
+              <option>General</option>
+              <option>OBC</option>
+              <option>SC</option>
+              <option>ST</option>
+              <option>EWS</option>
+              <option>Minority</option>
+            </select>
+
+            <label>Religion:</label>
+            <select name="religion" value={formData.religion} onChange={handleReligionChange} required>
+              <option value="">Select</option>
+              <option>Hindu</option>
+              <option>Muslim</option>
+              <option>Christian</option>
+              <option>Sikh</option>
+              <option>Buddhist</option>
+              <option>Jain</option>
+              <option>Parsi</option>
+              <option>Other</option>
+            </select>
+
+            <label>Special Criteria:</label>
+            <div>
+              {['Armed Force Family', 'First Graduate', 'Female Student', 'Minority Community', 'Physically challenged'].map((option) => (
+                <label key={option}>
+                  <input
+                    type="checkbox"
+                    value={option}
+                    checked={formData.criteria.includes(option)}
+                    onChange={handleSpecialCriteriaChange}
+                  />
+                  {option}
+                </label>
+              ))}
+            </div>
+
+            <label>Scholarship Type Preference:</label>
+            <select name="scholarshipType" value={formData.scholarshipType} onChange={handleChange} required>
+              <option value="">Select</option>
+              <option>Merit-Based</option>
+              <option>Need-Based</option>
+              <option>Exam-Based</option>
+            </select>
+
+            <button type="submit">Recommended Scholarships</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default UserForm;
